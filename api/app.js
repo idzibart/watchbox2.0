@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 import omdbRoute from "./routes/omdb.route.js";
 
-const app = express();
 dotenv.config();
+const app = express();
 
 // MIDDLEWARE
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
