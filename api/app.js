@@ -13,6 +13,7 @@ app.use(express.json());
 //ROUTES
 app.use("/api/omdb", omdbRoute);
 
+//PORT
 const PORT = process.env.PORT || 2137;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
