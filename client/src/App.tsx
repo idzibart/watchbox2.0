@@ -1,11 +1,32 @@
-import Navbar from "./components/Navbar";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import LoginPage from "./pages/login";
+import MoviePage from "./pages/main";
+import HomePage from "./pages/home";
+import Layout from "./layout/layout";
 
 const App = () => {
-  return (
-    <div className="ml-auto mr-auto flex h-screen max-w-[1366px] flex-col px-5 md:max-w-2xl lg:max-w-4xl xl:max-w-7xl">
-      <Navbar />
-    </div>
-  );
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        {
+          path: "/",
+          element: <HomePage />,
+        },
+        {
+          path: "movie",
+          element: <MoviePage />,
+        },
+        {
+          path: "login",
+          element: <LoginPage />,
+        },
+      ],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 };
 
 export default App;

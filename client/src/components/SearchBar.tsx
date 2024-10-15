@@ -44,8 +44,8 @@ const SearchBar: React.FC = () => {
           }
 
           setError(null);
-        } catch (err) {
-          setError("Nie udało się pobrać filmów.");
+        } catch (err: any) {
+          setError(err.response.data.message);
           setMovies([]);
         }
       } else {
@@ -64,8 +64,8 @@ const SearchBar: React.FC = () => {
       );
       setSelectedMovie(response.data);
       setError(null);
-    } catch (err) {
-      setError("Nie udało się pobrać szczegółów filmu.");
+    } catch (err: any) {
+      setError(err.response.data.message);
       setSelectedMovie(null);
     }
   };
@@ -96,13 +96,13 @@ const SearchBar: React.FC = () => {
         onChange={(e) => setTitle(e.target.value)}
         onFocus={() => setIsDropdownVisible(true)}
         placeholder="Wprowadź tytuł filmu..."
-        className="w-4/5 border p-2"
+        className="w-3/4 border-b-2 p-2 outline-none focus:border-b-cyan-600 focus:transition-all focus:duration-1000 focus:ease-out"
       />
 
       {/*DROPDOWN LIST*/}
       {isDropdownVisible && movies.length > 0 && (
         <div className="absolute flex w-full justify-center">
-          <ul className="z-10 w-4/5 overflow-y-auto border border-gray-300 bg-white">
+          <ul className="z-10 w-3/4 overflow-y-auto border-gray-300 bg-white">
             {movies.map((movie) => (
               <li
                 key={movie.imdbID}
