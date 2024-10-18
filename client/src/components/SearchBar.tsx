@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
 import { Movie, MovieDetail } from "../lib/types";
 import apiRequest from "../lib/apiRequest";
+import Spinner from "./Spinner";
+import { CiSearch } from "react-icons/ci";
 
 const SearchBar: React.FC = () => {
   const [title, setTitle] = useState<string>("");
@@ -9,10 +12,12 @@ const SearchBar: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [debouncedTitle, setDebouncedTitle] = useState<string>("");
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [dropdownStyles, setDropdownStyles] = useState<React.CSSProperties>({});
 
   const searchRef = useRef<HTMLDivElement>(null);
 
-  //MOVIES SEARCH DEBUNCING
+  // Debouncing title input
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedTitle(title);
@@ -23,11 +28,12 @@ const SearchBar: React.FC = () => {
     };
   }, [title]);
 
-  //MOVIES FETCHNIG
+  // Fetching movies based on debounced title
   useEffect(() => {
     const searchMovies = async () => {
       if (debouncedTitle) {
         try {
+          setIsLoading(true);
           const response = await apiRequest.get(
             `/omdb/search?title=${debouncedTitle}`,
           );
@@ -42,7 +48,7 @@ const SearchBar: React.FC = () => {
           } else {
             setMovies([]);
           }
-
+          setIsLoading(false);
           setError(null);
         } catch (err: any) {
           setError(err.response.data.message);
@@ -56,7 +62,7 @@ const SearchBar: React.FC = () => {
     searchMovies();
   }, [debouncedTitle]);
 
-  //MOVIE HANDLE
+  // Handle movie selection
   const handleMovieClick = async (imdbID: string) => {
     try {
       const response = await apiRequest.get<MovieDetail>(
@@ -70,7 +76,21 @@ const SearchBar: React.FC = () => {
     }
   };
 
-  //DROPDOWN VISIBILITY
+  // Handle dropdown visibility and positioning
+  useEffect(() => {
+    if (isDropdownVisible && searchRef.current) {
+      const rect = searchRef.current.getBoundingClientRect();
+      setDropdownStyles({
+        position: "absolute",
+        top: `${rect.bottom}px`,
+        left: `${rect.left}px`,
+        width: `${rect.width}px`,
+        zIndex: 50,
+      });
+    }
+  }, [isDropdownVisible]);
+
+  // Handle outside click to close dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -88,21 +108,12 @@ const SearchBar: React.FC = () => {
     };
   }, []);
 
-  return (
-    <div className="relative" ref={searchRef}>
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        onFocus={() => setIsDropdownVisible(true)}
-        placeholder="Wprowadź tytuł filmu..."
-        className="w-3/4 border-b-2 p-2 outline-none focus:border-b-cyan-600 focus:transition-all focus:duration-1000 focus:ease-out"
-      />
-
-      {/*DROPDOWN LIST*/}
-      {isDropdownVisible && movies.length > 0 && (
-        <div className="absolute flex w-full justify-center">
-          <ul className="z-10 w-3/4 overflow-y-auto border-gray-300 bg-white">
+  // Render dropdown list as a portal
+  const renderDropdown = () => {
+    if (isDropdownVisible && movies.length > 0) {
+      return ReactDOM.createPortal(
+        <div style={dropdownStyles} className="bg-black/30 backdrop-blur-md">
+          <ul className="w-full overflow-y-auto rounded-b-md border border-t-0 bg-inherit px-2 py-4 backdrop-blur-md">
             {movies.map((movie) => (
               <li
                 key={movie.imdbID}
@@ -113,11 +124,33 @@ const SearchBar: React.FC = () => {
               </li>
             ))}
           </ul>
-        </div>
-      )}
+        </div>,
+        document.body, // Append dropdown to body
+      );
+    }
+    return null;
+  };
 
-      {/*ERROR*/}
-      {error && <div className="text-red-500">{error}</div>}
+  return (
+    <div className="relative w-3/4" ref={searchRef}>
+      <div className="flex w-full items-center rounded-lg border border-slate-500/50 bg-transparent p-2 px-2 focus-within:border-cyan-400 focus-within:transition-all focus-within:duration-1000 focus-within:ease-out">
+        <CiSearch size={20} color="rgb(34 211 238)" />
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          onFocus={() => setIsDropdownVisible(true)}
+          placeholder="Search"
+          className="ml-2 w-full bg-transparent outline-none"
+        />
+        {isLoading && (
+          <div className="ml-auto">
+            <Spinner />
+          </div>
+        )}
+      </div>
+
+      {renderDropdown()}
     </div>
   );
 };
