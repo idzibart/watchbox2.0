@@ -13,11 +13,16 @@ const SearchBar: React.FC = () => {
   const [debouncedTitle, setDebouncedTitle] = useState<string>("");
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [dropdownStyles, setDropdownStyles] = useState<React.CSSProperties>({});
+  const [dropdownStyles, setDropdownStyles] = useState<React.CSSProperties>({
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+  });
 
   const searchRef = useRef<HTMLDivElement>(null);
 
-  // Debouncing title input
+  // MOVIES SEARCH DEBOUNCING
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedTitle(title);
@@ -28,7 +33,7 @@ const SearchBar: React.FC = () => {
     };
   }, [title]);
 
-  // Fetching movies based on debounced title
+  // MOVIES FETCHING
   useEffect(() => {
     const searchMovies = async () => {
       if (debouncedTitle) {
@@ -62,7 +67,7 @@ const SearchBar: React.FC = () => {
     searchMovies();
   }, [debouncedTitle]);
 
-  // Handle movie selection
+  // MOVIE HANDLE
   const handleMovieClick = async (imdbID: string) => {
     try {
       const response = await apiRequest.get<MovieDetail>(
@@ -76,21 +81,31 @@ const SearchBar: React.FC = () => {
     }
   };
 
-  // Handle dropdown visibility and positioning
+  // DROPDOWN POSITIONING AND VISIBILITY
   useEffect(() => {
-    if (isDropdownVisible && searchRef.current) {
-      const rect = searchRef.current.getBoundingClientRect();
-      setDropdownStyles({
-        position: "absolute",
-        top: `${rect.bottom}px`,
-        left: `${rect.left}px`,
-        width: `${rect.width}px`,
-        zIndex: 50,
-      });
-    }
+    const updateDropdownPosition = () => {
+      if (isDropdownVisible && searchRef.current) {
+        const rect = searchRef.current.getBoundingClientRect();
+        setDropdownStyles({
+          position: "absolute",
+          top: `${rect.bottom}px`,
+          left: `${rect.left}px`,
+          width: `${rect.width}px`,
+          zIndex: 50,
+        });
+      }
+    };
+
+    updateDropdownPosition();
+
+    window.addEventListener("resize", updateDropdownPosition);
+
+    return () => {
+      window.removeEventListener("resize", updateDropdownPosition);
+    };
   }, [isDropdownVisible]);
 
-  // Handle outside click to close dropdown
+  // DROPDOWN VISIBILITY
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -107,29 +122,6 @@ const SearchBar: React.FC = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-  // Render dropdown list as a portal
-  const renderDropdown = () => {
-    if (isDropdownVisible && movies.length > 0) {
-      return ReactDOM.createPortal(
-        <div style={dropdownStyles} className="bg-black/30 backdrop-blur-md">
-          <ul className="w-full overflow-y-auto rounded-b-md border border-t-0 bg-inherit px-2 py-4 backdrop-blur-md">
-            {movies.map((movie) => (
-              <li
-                key={movie.imdbID}
-                onClick={() => handleMovieClick(movie.imdbID)}
-                className="flex cursor-pointer justify-start p-2 text-start text-sm hover:bg-gray-200"
-              >
-                {movie.Title} ({movie.Year})
-              </li>
-            ))}
-          </ul>
-        </div>,
-        document.body, // Append dropdown to body
-      );
-    }
-    return null;
-  };
 
   return (
     <div className="relative w-3/4" ref={searchRef}>
@@ -150,7 +142,27 @@ const SearchBar: React.FC = () => {
         )}
       </div>
 
-      {renderDropdown()}
+      {/*DROPDOWN LIST*/}
+      {isDropdownVisible &&
+        movies.length > 0 &&
+        ReactDOM.createPortal(
+          <div style={dropdownStyles} className="bg-black/30 backdrop-blur-md">
+            <ul className="overflow-y-auto rounded-b-md border border-t-0 bg-inherit px-2 py-4 backdrop-blur-md">
+              {movies.map((movie) => (
+                <li
+                  key={movie.imdbID}
+                  onClick={() => handleMovieClick(movie.imdbID)}
+                  className="flex cursor-pointer justify-start p-2 text-start text-sm hover:bg-gray-200"
+                >
+                  {movie.Title} ({movie.Year})
+                </li>
+              ))}
+            </ul>
+          </div>,
+          document.body,
+        )}
+      {/*ERROR*/}
+      {error && <div className="text-red-500">{error}</div>}
     </div>
   );
 };
