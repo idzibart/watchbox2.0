@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import { Movie, MovieDetail } from "../lib/types";
+import { Movie } from "../lib/types";
 import apiRequest from "../lib/apiRequest";
 import Spinner from "./Spinner";
 import { CiSearch } from "react-icons/ci";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar: React.FC = () => {
   const [title, setTitle] = useState<string>("");
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [selectedMovie, setSelectedMovie] = useState<MovieDetail | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [debouncedTitle, setDebouncedTitle] = useState<string>("");
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
@@ -19,6 +19,8 @@ const SearchBar: React.FC = () => {
     left: 0,
     width: "100%",
   });
+
+  const navigate = useNavigate();
 
   const searchRef = useRef<HTMLDivElement>(null);
 
@@ -68,17 +70,10 @@ const SearchBar: React.FC = () => {
   }, [debouncedTitle]);
 
   // MOVIE HANDLE
-  const handleMovieClick = async (imdbID: string) => {
-    try {
-      const response = await apiRequest.get<MovieDetail>(
-        `/omdb/movie/${imdbID}`,
-      );
-      setSelectedMovie(response.data);
-      setError(null);
-    } catch (err: any) {
-      setError(err.response.data.message);
-      setSelectedMovie(null);
-    }
+  const handleMovieClick = (imdbID: string) => {
+    console.log("Navigating to /movie/" + imdbID);
+    navigate(`/movie/${imdbID}`);
+    setIsDropdownVisible(false);
   };
 
   // DROPDOWN POSITIONING AND VISIBILITY
@@ -146,21 +141,32 @@ const SearchBar: React.FC = () => {
       {isDropdownVisible &&
         movies.length > 0 &&
         ReactDOM.createPortal(
-          <div style={dropdownStyles} className="bg-black/50 backdrop-blur-md">
-            <ul className="overflow-y-scroll rounded-b-md border border-t-0 border-slate-500/50 bg-inherit backdrop-blur-md">
+          <div
+            style={{ ...dropdownStyles, zIndex: 9999, pointerEvents: "auto" }}
+            className="backdrop-blur-md"
+          >
+            <ul className="overflow-y-auto rounded-lg border-slate-500/50 bg-inherit backdrop-blur-md">
               {movies.map((movie) => (
                 <li
                   key={movie.imdbID}
                   onClick={() => handleMovieClick(movie.imdbID)}
-                  className="flex cursor-pointer justify-start gap-2 border border-slate-500/50 text-start text-sm transition-all duration-200 hover:border-cyan-400 hover:bg-cyan-400/30"
+                  className="flex cursor-pointer gap-2 rounded-lg border border-slate-500/50 bg-black/90 text-start text-sm transition-all duration-200 hover:border-cyan-400 hover:bg-cyan-400/30"
                 >
-                  <div className="flex w-1/3 lg:w-1/6">
-                    <img src={movie.Poster} alt={`${movie.Poster} poster`} />
+                  <div className="flex w-1/5 rounded-lg lg:w-[12%]">
+                    <img
+                      src={movie.Poster}
+                      className="rounded-lg"
+                      alt={`${movie.Poster} poster`}
+                    />
                   </div>
-                  <div className="py-1 text-xs">
-                    <h4>{movie.Title}</h4>
-                    <p>{movie.Type}</p> {movie.imdbID}
-                    {movie.Year}
+                  <div className="flex w-full flex-col py-1">
+                    <h4 className="text-base lg:text-lg">{movie.Title}</h4>
+                    <p className="text-xs font-bold text-slate-400">
+                      {movie.Year}
+                    </p>
+                    <p className="font-semiboldbold mr-2 text-end text-xs text-cyan-500 lg:text-sm">
+                      {movie.Type}
+                    </p>
                   </div>
                 </li>
               ))}
