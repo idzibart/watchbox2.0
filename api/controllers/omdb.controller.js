@@ -15,6 +15,7 @@ export const searchMovie = async (req, res) => {
     );
 
     res.status(200).json(response.data.Search);
+    // console.log(response.data.Search)
   } catch (error) {
     res.status(500).json({ message: "Error fetching movies data", error });
   }

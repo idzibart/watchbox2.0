@@ -3,6 +3,7 @@ export interface Movie {
   Year: string;
   imdbID: string;
   Poster: string;
+  Type: string;
 }
 
 export interface MovieDetail {

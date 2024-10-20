@@ -146,15 +146,22 @@ const SearchBar: React.FC = () => {
       {isDropdownVisible &&
         movies.length > 0 &&
         ReactDOM.createPortal(
-          <div style={dropdownStyles} className="bg-black/30 backdrop-blur-md">
-            <ul className="overflow-y-auto rounded-b-md border border-t-0 bg-inherit px-2 py-4 backdrop-blur-md">
+          <div style={dropdownStyles} className="bg-black/50 backdrop-blur-md">
+            <ul className="overflow-y-scroll rounded-b-md border border-t-0 border-slate-500/50 bg-inherit backdrop-blur-md">
               {movies.map((movie) => (
                 <li
                   key={movie.imdbID}
                   onClick={() => handleMovieClick(movie.imdbID)}
-                  className="flex cursor-pointer justify-start p-2 text-start text-sm hover:bg-gray-200"
+                  className="flex cursor-pointer justify-start gap-2 border border-slate-500/50 text-start text-sm transition-all duration-200 hover:border-cyan-400 hover:bg-cyan-400/30"
                 >
-                  {movie.Title} ({movie.Year})
+                  <div className="flex w-1/3 lg:w-1/6">
+                    <img src={movie.Poster} alt={`${movie.Poster} poster`} />
+                  </div>
+                  <div className="py-1 text-xs">
+                    <h4>{movie.Title}</h4>
+                    <p>{movie.Type}</p> {movie.imdbID}
+                    {movie.Year}
+                  </div>
                 </li>
               ))}
             </ul>
