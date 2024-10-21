@@ -136,44 +136,41 @@ const SearchBar: React.FC = () => {
           </div>
         )}
       </div>
-
       {/*DROPDOWN LIST*/}
-      {isDropdownVisible &&
-        movies.length > 0 &&
-        ReactDOM.createPortal(
-          <div
-            style={{ ...dropdownStyles, zIndex: 9999, pointerEvents: "auto" }}
-            className="backdrop-blur-md"
-          >
-            <ul className="overflow-y-auto rounded-lg border-slate-500/50 bg-inherit backdrop-blur-md">
-              {movies.map((movie) => (
-                <li
-                  key={movie.imdbID}
-                  onClick={() => handleMovieClick(movie.imdbID)}
-                  className="flex cursor-pointer gap-2 rounded-lg border border-slate-500/50 bg-black/90 text-start text-sm transition-all duration-200 hover:border-cyan-400 hover:bg-cyan-400/30"
-                >
-                  <div className="flex w-1/5 rounded-lg lg:w-[12%]">
-                    <img
-                      src={movie.Poster}
-                      className="rounded-lg"
-                      alt={`${movie.Poster} poster`}
-                    />
-                  </div>
-                  <div className="flex w-full flex-col py-1">
-                    <h4 className="text-base lg:text-lg">{movie.Title}</h4>
-                    <p className="text-xs font-bold text-slate-400">
-                      {movie.Year}
-                    </p>
-                    <p className="font-semiboldbold mr-2 text-end text-xs text-cyan-500 lg:text-sm">
-                      {movie.Type}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>,
-          document.body,
-        )}
+      <div
+        className={`absolute z-50 w-full shadow-lg ${
+          isDropdownVisible && movies.length > 0 ? "visible" : "invisible"
+        }`}
+        style={{
+          visibility:
+            isDropdownVisible && movies.length > 0 ? "visible" : "hidden",
+        }}
+      >
+        <ul className="overflow-y-auto rounded-lg border-slate-500/50 bg-inherit backdrop-blur-md">
+          {movies.map((movie) => (
+            <li
+              key={movie.imdbID}
+              onClick={() => handleMovieClick(movie.imdbID)}
+              className="flex cursor-pointer gap-2 rounded-lg border border-slate-500/50 bg-black/90 text-start text-sm transition-all duration-200 hover:border-cyan-400 hover:bg-cyan-900"
+            >
+              <div className="flex w-1/4 rounded-lg lg:w-[12%]">
+                <img
+                  src={movie.Poster}
+                  className="rounded-lg"
+                  alt={`${movie.Poster} poster`}
+                />
+              </div>
+              <div className="flex w-full flex-col py-1">
+                <h4 className="text-base lg:text-lg">{movie.Title}</h4>
+                <p className="text-xs font-bold text-slate-400">{movie.Year}</p>
+                <p className="font-semiboldbold mr-2 text-end text-xs text-cyan-500 lg:text-sm">
+                  {movie.Type}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
       {/*ERROR*/}
       {error && <div className="text-red-500">{error}</div>}
     </div>

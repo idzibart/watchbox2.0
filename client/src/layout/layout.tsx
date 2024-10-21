@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 const Layout = () => {
   return (
     <div className="ml-auto mr-auto flex h-screen max-w-[1366px] flex-col gap-8 px-8 sm:px-12 md:max-w-4xl lg:max-w-6xl xl:max-w-7xl">
-      <div>
+      <div className="z-10">
         <Navbar />
       </div>
       <div className="h-[calc(100vh-140px)] rounded-md border shadow-[0_0_30px_-20px] border-slate-500/50 bg-black/30 p-6 backdrop-blur-md">
