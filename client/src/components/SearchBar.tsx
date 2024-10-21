@@ -138,7 +138,7 @@ const SearchBar: React.FC = () => {
       </div>
       {/*DROPDOWN LIST*/}
       <div
-        className={`absolute z-50 w-full shadow-[0_0_30px_-20px] shadow-black  ${
+        className={`absolute z-50 w-full shadow-[0_0_30px_-20px] shadow-black ${
           isDropdownVisible && movies.length > 0 ? "visible" : "invisible"
         }`}
         style={{
@@ -151,19 +151,19 @@ const SearchBar: React.FC = () => {
             <li
               key={movie.imdbID}
               onClick={() => handleMovieClick(movie.imdbID)}
-              className="flex cursor-pointer gap-2 rounded-lg border border-slate-500/50 bg-black/90 text-start text-sm transition-all duration-200 hover:border-cyan-400 hover:bg-cyan-900"
+              className="flex h-20 cursor-pointer gap-2 rounded-lg border border-slate-500/50 bg-black/90 text-start text-sm transition-all duration-200 hover:border-cyan-400 hover:bg-cyan-900"
             >
-              <div className="flex w-1/4 rounded-lg lg:w-[12%]">
+              <div className="flex w-1/5 rounded-lg">
                 <img
                   src={movie.Poster}
                   className="rounded-lg object-cover"
                   alt={`${movie.Title} poster`}
                 />
               </div>
-              <div className="flex w-full flex-col py-1">
-                <h4 className="text-base lg:text-lg">{movie.Title}</h4>
-                <p className="text-xs font-bold text-slate-400">{movie.Year}</p>
-                <p className="font-semiboldbold mr-2 text-end text-xs text-cyan-500 lg:text-sm">
+              <div className="relative flex w-full flex-col py-1">
+                <h4 className="text-sm lg:text-base">{movie.Title}</h4>
+                <p className="text-xs font-bold text-slate-500">{movie.Year}</p>
+                <p className="font-semiboldbold absolute bottom-1 right-1 text-end text-xs text-cyan-500 lg:text-sm">
                   {movie.Type}
                 </p>
               </div>
