@@ -2,7 +2,7 @@ import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   return (
-    <nav className="mt-4 flex w-full items-center justify-between rounded-md border border-slate-500/50 shadow-[0_0_30px_-20px] bg-black/30 p-4 text-center text-sm backdrop-blur-md lg:text-base">
+    <nav className="mt-4 flex w-full items-center justify-between rounded-md border border-slate-500/50 shadow-[0_0_30px_-20px] shadow-black bg-black/30 p-4 text-center text-sm backdrop-blur-md lg:text-base">
       <div className="flex w-1/4 justify-start lg:ml-6">
         <span className="cursor-pointer hover:text-slate-300">WACHBOX</span>
       </div>

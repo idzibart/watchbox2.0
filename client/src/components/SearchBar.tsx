@@ -138,7 +138,7 @@ const SearchBar: React.FC = () => {
       </div>
       {/*DROPDOWN LIST*/}
       <div
-        className={`absolute z-50 w-full shadow-lg ${
+        className={`absolute z-50 w-full shadow-[0_0_30px_-20px] shadow-black  ${
           isDropdownVisible && movies.length > 0 ? "visible" : "invisible"
         }`}
         style={{
@@ -156,8 +156,8 @@ const SearchBar: React.FC = () => {
               <div className="flex w-1/4 rounded-lg lg:w-[12%]">
                 <img
                   src={movie.Poster}
-                  className="rounded-lg"
-                  alt={`${movie.Poster} poster`}
+                  className="rounded-lg object-cover"
+                  alt={`${movie.Title} poster`}
                 />
               </div>
               <div className="flex w-full flex-col py-1">

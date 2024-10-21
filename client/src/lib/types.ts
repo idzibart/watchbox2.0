@@ -12,4 +12,12 @@ export interface MovieDetail {
   Director: string;
   Plot: string;
   Poster: string;
+  Rated: string;
+  Runtime: string;
+  Genre: string;
+  Actors: string;
+  Language: string;
+  Country: string
+  Metascore: string;
+  imdbRating: string
 }
