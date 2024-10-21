@@ -32,19 +32,21 @@ const MoviePage = () => {
       {movie ? (
         <div className="flex flex-col">
           <div className="flex w-full gap-2 lg:gap-6">
-            <div className="flex w-1/3">
+            <div className="flex w-1/3 rounded-lg transition-all duration-300">
               <img
                 src={movie.Poster}
                 alt={`${movie.Title} poster`}
-                className="object-contain"
+                className="w-full rounded-lg border border-slate-500/50 object-contain"
               />
             </div>
+
+            {/* MOVIE INFO */}
             <div className="ml-2 flex w-2/3 flex-col">
               <h1 className="mb-4 p-2 text-2xl lg:text-3xl">{movie.Title}</h1>
               <div className="flex h-full flex-col gap-y-4">
                 <div className="grid w-full grid-cols-2 gap-4">
                   {/* SECTION 1 */}
-                  <div className="grid grid-cols-2 gap-4 rounded-lg bg-slate-800 px-3 py-2 lg:gap-6 lg:px-5 lg:py-3">
+                  <div className="grid grid-cols-2 gap-4 rounded-lg border border-slate-500/50 bg-cyan-400/10 px-3 py-2 lg:gap-6 lg:px-5 lg:py-3">
                     <div className="flex flex-col">
                       <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
                         year
@@ -54,7 +56,7 @@ const MoviePage = () => {
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
-                          className="text-stone-400 size-6"
+                          className="size-6 text-stone-400"
                         >
                           <path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
                           <path
@@ -133,27 +135,27 @@ const MoviePage = () => {
                   </div>
 
                   {/* SECTION 2 */}
-                  <div className="grid gap-4 rounded-lg bg-slate-800 px-3 py-2 lg:gap-6 lg:px-5 lg:py-3">
+                  <div className="grid gap-4 rounded-lg border border-slate-500/50 bg-cyan-400/10 px-3 py-2 lg:gap-6 lg:px-5 lg:py-3">
                     <div className="flex flex-col">
                       <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
-                        director
+                        ypur rating
                       </span>
                       <p className="flex flex-col p-1 text-lg">
-                        {movie.Director}
+                        RATING IN STARS
                       </p>
                     </div>
                     <div className="flex flex-col">
                       <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
-                        director
+                        watchlist
                       </span>
                       <p className="flex flex-col p-1 text-lg">
-                        {movie.Director}
+                        ADD TO WATCHLIST
                       </p>
                     </div>
                   </div>
                 </div>
                 {/* SECTION 3 */}
-                <div className="grid w-full grid-cols-2 gap-4 rounded-lg bg-slate-800">
+                <div className="grid w-full grid-cols-2 gap-4 rounded-lg border border-slate-500/50 bg-cyan-400/10">
                   <div className="grid gap-y-4 px-3 py-2 lg:px-5 lg:py-3">
                     <div className="flex flex-col">
                       <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
@@ -196,8 +198,40 @@ const MoviePage = () => {
             </div>
           </div>
 
-          <div>
-            <p>{movie.Plot}</p>
+          {/* DESCRIPTION */}
+          <div className="flex flex-col p-4 lg:p-6">
+            <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
+              description
+            </span>
+            <p className="flex flex-col p-1 text-xl">{movie.Plot}</p>
+          </div>
+          <div className="flex flex-col p-4 lg:p-6">
+            <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
+              awards
+            </span>
+            <p className="flex flex-col p-1 text-xl">{movie.Awards}</p>
+          </div>
+          <div className="flex items-center gap-2 p-4 text-slate-400 hover:text-cyan-500 lg:p-6">
+            <a
+              href={`https://www.imdb.com/title/${imdbID}`}
+              rel="noreferrer"
+              target="_blank"
+              className="underline"
+            >
+              check on IMDb
+            </a>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="size-6"
+            >
+              <path
+                fillRule="evenodd"
+                d="M15.75 2.25H21a.75.75 0 0 1 .75.75v5.25a.75.75 0 0 1-1.5 0V4.81L8.03 17.03a.75.75 0 0 1-1.06-1.06L19.19 3.75h-3.44a.75.75 0 0 1 0-1.5Zm-10.5 4.5a1.5 1.5 0 0 0-1.5 1.5v10.5a1.5 1.5 0 0 0 1.5 1.5h10.5a1.5 1.5 0 0 0 1.5-1.5V10.5a.75.75 0 0 1 1.5 0v8.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V8.25a3 3 0 0 1 3-3h8.25a.75.75 0 0 1 0 1.5H5.25Z"
+                clipRule="evenodd"
+              />
+            </svg>
           </div>
         </div>
       ) : (

@@ -12,7 +12,7 @@ export interface MovieDetail {
   Director: string;
   Plot: string;
   Poster: string;
-  Rated: string;
+  Awards: string;
   Runtime: string;
   Genre: string;
   Actors: string;
