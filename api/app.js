@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import authRoute from "./routes/auth.route.js";
 import omdbRoute from "./routes/omdb.route.js";
 
 dotenv.config();
@@ -11,6 +12,7 @@ app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
 
 //ROUTES
+app.use("/api/auth", authRoute);
 app.use("/api/omdb", omdbRoute);
 
 //PORT
