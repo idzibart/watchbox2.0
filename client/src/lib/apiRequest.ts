@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiRequest = axios.create({
-  baseURL: "https://watchbox2-0-backend.onrender.com/api",
+  baseURL: "http://localhost:2137/api",
   withCredentials: true,
 });
 
