@@ -21,7 +21,7 @@ export const searchMovie = async (req, res) => {
   }
 };
 
-// MOVIE INFO (szczegóły filmu)
+// MOVIE INFO
 export const movieInfo = async (req, res) => {
   const { imdbID } = req.params;
 
