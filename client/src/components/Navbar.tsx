@@ -13,14 +13,16 @@ const Navbar = () => {
         <SearchBar />
       </div>
       <div className="flex w-1/4 items-center justify-end gap-3 md:gap-10 lg:mr-6">
-        <a href="/" className="">
+        <a href="/login" className="">
           <span className="duration-2 00 cursor-pointer transition-all hover:text-slate-300">
+            Log in
+          </span>
+        </a>
+        <a href="/register" className="">
+          <span className="cursor-pointer rounded-md bg-cyan-500 p-2 px-4 transition-all duration-200 hover:bg-cyan-800">
             Sign in
           </span>
         </a>
-        <span className="cursor-pointer rounded-lg bg-cyan-400 p-2 px-4 text-slate-900 transition-all duration-200 hover:bg-cyan-600 hover:text-slate-200">
-          Sign in
-        </span>
       </div>
     </nav>
   );

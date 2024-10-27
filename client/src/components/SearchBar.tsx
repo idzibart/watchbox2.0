@@ -121,7 +121,7 @@ const SearchBar: React.FC = () => {
   return (
     <div className="relative w-3/4" ref={searchRef}>
       <div className="flex w-full items-center rounded-lg border border-slate-500/50 bg-transparent p-2 px-2 focus-within:border-cyan-400 focus-within:transition-all focus-within:duration-1000 focus-within:ease-out">
-        <CiSearch size={20} color="rgb(34 211 238)" />
+        <CiSearch size={20} color="rgb(6 182 212)" />
         <input
           type="text"
           value={title}
@@ -151,7 +151,7 @@ const SearchBar: React.FC = () => {
             <li
               key={movie.imdbID}
               onClick={() => handleMovieClick(movie.imdbID)}
-              className="flex h-20 cursor-pointer gap-2 rounded-lg border border-slate-500/50 bg-black/90 text-start text-sm transition-all duration-200 hover:border-cyan-400 hover:bg-cyan-900"
+              className="flex h-20 cursor-pointer gap-2 rounded-lg border border-slate-500/50 bg-black/90 text-start text-sm transition-all duration-200 hover:border-cyan-500 hover:bg-cyan-900"
             >
               <div className="flex w-1/5 rounded-lg">
                 <img

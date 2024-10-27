@@ -3,6 +3,7 @@ import LoginPage from "./pages/login";
 import MoviePage from "./pages/main";
 import HomePage from "./pages/home";
 import Layout from "./layout/layout";
+import RegisterPage from "./pages/register";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -21,6 +22,10 @@ const App = () => {
         {
           path: "login",
           element: <LoginPage />,
+        },
+        {
+          path: "register",
+          element: <RegisterPage />,
         },
       ],
     },

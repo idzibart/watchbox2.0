@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import apiRequest from "../lib/apiRequest";
 import { MovieDetail } from "../lib/types";
+import Spinner from "../components/Spinner";
 
 const MoviePage = () => {
   const { imdbID } = useParams();
@@ -46,9 +47,9 @@ const MoviePage = () => {
               <div className="flex h-full flex-col gap-y-4">
                 <div className="grid w-full grid-cols-2 gap-4">
                   {/* SECTION 1 */}
-                  <div className="grid grid-cols-2 gap-4 rounded-lg border border-slate-500/50 bg-cyan-400/10 px-3 py-2 lg:gap-6 lg:px-5 lg:py-3">
+                  <div className="grid grid-cols-2 gap-4 rounded-lg border border-slate-500/50 bg-cyan-800/30 px-3 py-2 lg:gap-6 lg:px-5 lg:py-3">
                     <div className="flex flex-col">
-                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
+                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-500">
                         year
                       </span>
                       <p className="flex items-center gap-1 p-1 text-lg">
@@ -70,7 +71,7 @@ const MoviePage = () => {
                       </p>
                     </div>
                     <div className="flex flex-col">
-                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
+                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-500">
                         runtime
                       </span>
                       <p className="flex items-center gap-1 p-1 text-lg">
@@ -91,8 +92,8 @@ const MoviePage = () => {
                       </p>
                     </div>
                     <div className="flex flex-col">
-                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
-                        imdbRating
+                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-500">
+                        imdb
                       </span>
                       <p className="flex items-center gap-1 p-1 text-lg">
                         <svg
@@ -112,7 +113,7 @@ const MoviePage = () => {
                       </p>
                     </div>
                     <div className="flex flex-col">
-                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
+                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-500">
                         metascore
                       </span>
                       <p className="flex items-center gap-1 p-1 text-lg">
@@ -135,9 +136,9 @@ const MoviePage = () => {
                   </div>
 
                   {/* SECTION 2 */}
-                  <div className="grid gap-4 rounded-lg border border-slate-500/50 bg-cyan-400/10 px-3 py-2 lg:gap-6 lg:px-5 lg:py-3">
+                  <div className="grid gap-4 rounded-lg border border-slate-500/50 bg-cyan-800/30 px-3 py-2 lg:gap-6 lg:px-5 lg:py-3">
                     <div className="flex flex-col">
-                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
+                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-500">
                         ypur rating
                       </span>
                       <p className="flex flex-col p-1 text-lg">
@@ -145,7 +146,7 @@ const MoviePage = () => {
                       </p>
                     </div>
                     <div className="flex flex-col">
-                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
+                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-500">
                         watchlist
                       </span>
                       <p className="flex flex-col p-1 text-lg">
@@ -155,10 +156,10 @@ const MoviePage = () => {
                   </div>
                 </div>
                 {/* SECTION 3 */}
-                <div className="grid w-full grid-cols-2 gap-4 rounded-lg border border-slate-500/50 bg-cyan-400/10">
+                <div className="grid w-full grid-cols-2 gap-4 rounded-lg border border-slate-500/50 bg-cyan-800/30">
                   <div className="grid gap-y-4 px-3 py-2 lg:px-5 lg:py-3">
                     <div className="flex flex-col">
-                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
+                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-500">
                         director
                       </span>
                       <p className="flex flex-col p-1 text-lg">
@@ -166,7 +167,7 @@ const MoviePage = () => {
                       </p>
                     </div>
                     <div className="flex flex-col">
-                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
+                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-500">
                         actors
                       </span>
                       <p className="flex flex-col p-1 text-lg">
@@ -177,7 +178,7 @@ const MoviePage = () => {
 
                   <div className="grid gap-y-4 px-3 py-2 lg:px-5 lg:py-3">
                     <div className="flex flex-col">
-                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
+                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-500">
                         genre
                       </span>
                       <p className="flex flex-col p-1 text-lg">
@@ -185,7 +186,7 @@ const MoviePage = () => {
                       </p>
                     </div>
                     <div className="flex flex-col">
-                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
+                      <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-500">
                         country
                       </span>
                       <p className="flex flex-col p-1 text-lg">
@@ -200,13 +201,13 @@ const MoviePage = () => {
 
           {/* DESCRIPTION */}
           <div className="flex flex-col p-4 lg:p-6">
-            <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
+            <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-500">
               description
             </span>
             <p className="flex flex-col p-1 text-xl">{movie.Plot}</p>
           </div>
           <div className="flex flex-col p-4 lg:p-6">
-            <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-400">
+            <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-500">
               awards
             </span>
             <p className="flex flex-col p-1 text-xl">{movie.Awards}</p>
@@ -235,7 +236,7 @@ const MoviePage = () => {
           </div>
         </div>
       ) : (
-        <p>Loading...</p>
+        <Spinner />
       )}
     </div>
   );

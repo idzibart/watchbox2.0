@@ -5,20 +5,22 @@ const HomePage = () => {
         <div className="flex flex-1 flex-col gap-6 py-12 lg:gap-12">
           <h1 className="text-4xl font-bold lg:text-6xl">
             The Perfect Place for Every
-            <span className="text-cyan-400"> Movie Lover</span>
+            <span className="text-cyan-500"> Movie Lover</span>
           </h1>
           <p className="font-thin">
             Track, rate, and rediscover your favorites. Search or join
           </p>
-          <button className="mt-6 flex w-3/4 cursor-pointer items-center justify-center gap-2 self-center rounded-lg bg-cyan-400 p-2 px-4 text-xl font-bold text-slate-900 transition-all duration-200 hover:scale-105 hover:bg-cyan-600 hover:text-slate-200">
-            Join now
-          </button>
+          <a href="/register">
+            <button className="mt-6 flex w-3/4 cursor-pointer items-center justify-center gap-2 self-center rounded-lg bg-cyan-500 p-5 px-4 text-xl transition-all duration-200 hover:scale-105 hover:bg-cyan-800 hover:text-slate-200">
+              Join now
+            </button>
+          </a>
         </div>
         <div className="flex flex-1">
           <img
             src="hero.jpg"
             alt=""
-            className="h-3/4 rounded-lg border border-cyan-400 object-cover transition-all duration-300 hover:shadow-[10px_10px_0px_rgba(34,211,238)]"
+            className="h-3/4 rounded-lg border border-cyan-500 object-cover transition-all duration-300 hover:shadow-[10px_10px_0px_rgba(6 182 212)]"
           />
         </div>
       </div>
@@ -41,7 +43,7 @@ const HomePage = () => {
             </svg>
           </div>
           <h3 className="text-lg font-bold">
-            <span className="conte border-b border-b-cyan-400">Rate</span>
+            <span className="conte border-b border-b-cyan-500">Rate</span>
           </h3>
           <p className="p-2 font-thin">
             You can rate every movie and create your own clasification
@@ -65,7 +67,7 @@ const HomePage = () => {
             </svg>
           </div>
           <h3 className="text-lg font-bold">
-            <span className="conte border-b border-b-cyan-400">Comment</span>
+            <span className="conte border-b border-b-cyan-500">Comment</span>
           </h3>
           <p className="p-2 font-thin">Add notes with your thoughts</p>
         </div>
@@ -87,7 +89,7 @@ const HomePage = () => {
             </svg>
           </div>
           <h3 className="text-lg font-bold">
-            <span className="conte border-b border-b-cyan-400">
+            <span className="conte border-b border-b-cyan-500">
               Add to lists
             </span>
           </h3>
