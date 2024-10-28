@@ -3,12 +3,17 @@ import { useEffect, useState } from "react";
 import apiRequest from "../lib/apiRequest";
 import { MovieDetail } from "../lib/types";
 import Spinner from "../components/Spinner";
+import RatingReview from "../components/RatingReview";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 const MoviePage = () => {
   const { imdbID } = useParams();
   console.log("imdbID:", imdbID);
   const [movie, setMovie] = useState<MovieDetail | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [rating, setRating] = useState(0);
+  const currentUser = useSelector((state: RootState) => state.user.currentUser);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -139,10 +144,14 @@ const MoviePage = () => {
                   <div className="grid gap-4 rounded-lg border border-slate-500/50 bg-cyan-800/30 px-3 py-2 lg:gap-6 lg:px-5 lg:py-3">
                     <div className="flex flex-col">
                       <span className="-mb-1 -ml-1 text-xs font-normal uppercase text-cyan-500">
-                        ypur rating
+                        your rating
                       </span>
                       <p className="flex flex-col p-1 text-lg">
-                        RATING IN STARS
+                        {currentUser ? (
+                          <RatingReview rating={rating} setRating={setRating} />
+                        ) : (
+                          <>Login to rate</>
+                        )}
                       </p>
                     </div>
                     <div className="flex flex-col">
