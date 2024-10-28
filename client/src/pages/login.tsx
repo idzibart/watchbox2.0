@@ -1,11 +1,14 @@
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiRequest from "../lib/apiRequest";
+import { useDispatch } from "react-redux";
+import { setUser } from "../store/userSlice";
 
 function LoginPage() {
   const [error, setError] = useState<String>("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,6 +24,7 @@ function LoginPage() {
         password,
       });
 
+      dispatch(setUser(res.data))
       navigate("/");
     } catch (err: any) {
       setError(err.response.data.message);

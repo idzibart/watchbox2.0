@@ -21,3 +21,9 @@ export interface MovieDetail {
   Metascore: string;
   imdbRating: string
 }
+
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+}
