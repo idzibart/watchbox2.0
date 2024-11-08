@@ -13,4 +13,17 @@ model User {
   username   String      @unique
   password   String
   createdAt  DateTime    @default(now())
+  ratings    Rating[]
+}
+
+model Rating {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  movieId   String   // imdbID
+  rate      Int      @default(0)
+  createdAt DateTime @default(now())
+
+  user      User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, movieId]) 
 }

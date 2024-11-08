@@ -36,7 +36,7 @@ const Navbar = () => {
       <div className="flex w-1/4 items-center justify-end gap-3 md:gap-10 lg:mr-6">
         {currentUser ? (
           <>
-            <a href="/login" className="">
+            <a href="/" className="">
               <span className="cursor-pointer transition-all hover:text-slate-300">
                 My lists
               </span>

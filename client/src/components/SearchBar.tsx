@@ -70,7 +70,6 @@ const SearchBar: React.FC = () => {
 
   // MOVIE HANDLE
   const handleMovieClick = (imdbID: string) => {
-    console.log("Navigating to /movie/" + imdbID);
     navigate(`/movie/${imdbID}`);
     setIsDropdownVisible(false);
   };

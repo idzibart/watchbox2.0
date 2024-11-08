@@ -7,7 +7,7 @@ const Layout = () => {
       <div className="z-10">
         <Navbar />
       </div>
-      <div className="h-[calc(100vh-140px)] rounded-md border border-slate-500/50 bg-black/30 p-6 shadow-[0_0_30px_-20px] shadow-black backdrop-blur-md">
+      <div className="h-[calc(100vh-140px)] overflow-auto rounded-md border border-slate-500/50 bg-black/30 p-6 shadow-[0_0_30px_-20px] shadow-black backdrop-blur-md">
         <Outlet />
       </div>
     </div>
