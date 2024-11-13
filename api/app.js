@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import authRoute from "./routes/auth.route.js";
 import omdbRoute from "./routes/omdb.route.js";
 import rateRoute from "./routes/rate.route.js";
+import watchlistRoute from "./routes/watchlist.route.js";
 
 dotenv.config();
 const app = express();
@@ -18,6 +19,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoute);
 app.use("/api/omdb", omdbRoute);
 app.use("/api/rate", rateRoute);
+app.use("/api/watchlist", watchlistRoute);
 
 //PORT
 const PORT = process.env.PORT || 2137;

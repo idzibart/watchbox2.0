@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Movie } from "../lib/types";
 import apiRequest from "../lib/apiRequest";
 import Spinner from "./Spinner";
-import { CiSearch } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
+import { Search } from "./Icons";
 
 const SearchBar: React.FC = () => {
   const [title, setTitle] = useState<string>("");
@@ -119,7 +119,7 @@ const SearchBar: React.FC = () => {
   return (
     <div className="relative w-3/4" ref={searchRef}>
       <div className="flex w-full items-center rounded-lg border border-slate-500/50 bg-transparent p-2 px-2 focus-within:border-cyan-400 focus-within:transition-all focus-within:duration-1000 focus-within:ease-out">
-        <CiSearch size={20} color="rgb(6 182 212)" />
+        <Search />
         <input
           type="text"
           value={title}
