@@ -6,7 +6,7 @@ import Spinner from "../components/Spinner";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { WatchList, MovieRating } from "../components/Lists";
-import { Calendar, Star, Time } from "../components/Icons";
+import { Calendar, Link, Star, Time } from "../components/Icons";
 
 const MoviePage = () => {
   const { imdbID } = useParams();
@@ -49,109 +49,82 @@ const MoviePage = () => {
             <div className="ml-2 flex w-2/3 flex-col">
               <h1 className="mb-4 p-2 text-2xl lg:text-3xl">{movie.Title}</h1>
               <div className="flex h-full flex-col gap-y-4">
-                <div className="grid w-full grid-cols-2 gap-4">
+                <div className="grid w-full grid-cols-1 gap-4 lg:grid-cols-2">
                   {/* SECTION 1 */}
-                  <div className="grid grid-cols-2 gap-4 rounded-lg border border-slate-500/50 bg-cyan-800/30 px-3 py-2 lg:gap-6 lg:px-5 lg:py-3">
+                  <div className="section-container grid grid-cols-2 gap-4 lg:gap-6">
                     <div className="flex flex-col">
-                      <span className="-ml-1 mb-1 text-xs font-normal uppercase text-cyan-500">
-                        year
-                      </span>
-                      <p className="flex items-center gap-1 p-1 text-lg">
+                      <span className="section-title">year</span>
+                      <p className="content-text">
                         <Calendar />
                         {movie.Year}
                       </p>
                     </div>
                     <div className="flex flex-col">
-                      <span className="-ml-1 mb-1 text-xs font-normal uppercase text-cyan-500">
-                        runtime
-                      </span>
-                      <p className="flex items-center gap-1 p-1 text-lg">
+                      <span className="section-title">runtime</span>
+                      <p className="content-text">
                         <Time />
-
                         {movie.Runtime}
                       </p>
                     </div>
                     <div className="flex flex-col">
-                      <span className="-ml-1 mb-1 text-xs font-normal uppercase text-cyan-500">
-                        imdb
-                      </span>
-                      <p className="flex items-center gap-1 p-1 text-lg">
+                      <span className="section-title">imdb</span>
+                      <p className="content-text">
                         <Star />
-
                         {movie.imdbRating}
                       </p>
                     </div>
                     <div className="flex flex-col">
-                      <span className="-ml-1 mb-1 text-xs font-normal uppercase text-cyan-500">
-                        metascore
-                      </span>
-                      <p className="flex items-center gap-1 p-1 text-lg">
+                      <span className="section-title">metascore</span>
+                      <p className="content-text">
                         <Star />
-
                         {movie.Metascore}
                       </p>
                     </div>
                   </div>
 
                   {/* SECTION 2 */}
-                  <div className="grid gap-4 rounded-lg border border-slate-500/50 bg-cyan-800/30 px-3 py-2 lg:gap-6 lg:px-5 lg:py-3">
+                  <div className="section-container grid gap-4 lg:gap-6">
                     <div className="flex flex-col">
-                      <span className="-ml-1 mb-1 text-xs font-normal uppercase text-cyan-500">
-                        your rating
-                      </span>
-                      <p className="flex flex-col p-1 text-lg">
+                      <span className="section-title">your rating</span>
+                      <div className="flex items-center justify-center lg:scale-110">
                         {currentUser && imdbID ? (
                           <MovieRating imdbID={imdbID} />
                         ) : (
                           <>Login to rate</>
                         )}
-                      </p>
+                      </div>
                     </div>
                     <div className="flex flex-col">
-                      <span className="-ml-1 mb-1 text-xs font-normal uppercase text-cyan-500">
-                        watchlist
-                      </span>
-                      {imdbID && <WatchList imdbID={imdbID} />}
+                      <span className="section-title">watchlist</span>
+                      <div className="flex items-center justify-center">
+                        {imdbID && <WatchList imdbID={imdbID} />}
+                      </div>
                     </div>
                   </div>
                 </div>
+
                 {/* SECTION 3 */}
-                <div className="grid w-full grid-cols-2 gap-4 rounded-lg border border-slate-500/50 bg-cyan-800/30">
-                  <div className="grid gap-y-4 px-3 py-2 lg:px-5 lg:py-3">
+                <div className="section-container grid w-full grid-cols-2 gap-4">
+                  <div className="grid gap-y-4">
                     <div className="flex flex-col">
-                      <span className="-ml-1 mb-1 text-xs font-normal uppercase text-cyan-500">
-                        director
-                      </span>
-                      <p className="flex flex-col p-1 text-lg">
-                        {movie.Director}
-                      </p>
+                      <span className="section-title">director</span>
+                      <p className="content-text">{movie.Director}</p>
                     </div>
                     <div className="flex flex-col">
-                      <span className="-ml-1 mb-1 text-xs font-normal uppercase text-cyan-500">
-                        actors
-                      </span>
-                      <p className="flex flex-col p-1 text-lg">
-                        {movie.Actors}
-                      </p>
+                      <span className="section-title">actors</span>
+                      <p className="content-text">{movie.Actors}</p>
                     </div>
                   </div>
-
-                  <div className="grid gap-y-4 px-3 py-2 lg:px-5 lg:py-3">
+                  <div className="grid gap-y-4">
                     <div className="flex flex-col">
-                      <span className="-ml-1 mb-1 text-xs font-normal uppercase text-cyan-500">
-                        genre
-                      </span>
-                      <p className="flex flex-col p-1 text-lg">
+                      <span className="section-title">genre</span>
+                      <p className="content-text">
                         {movie.Genre.toLowerCase()}
                       </p>
                     </div>
                     <div className="flex flex-col">
-                      <span className="-ml-1 mb-1 text-xs font-normal uppercase text-cyan-500">
-                        country
-                      </span>
-                      <p className="flex flex-col p-1 text-lg">
-                        {movie.Country}
-                      </p>
+                      <span className="section-title">country</span>
+                      <p className="content-text">{movie.Country}</p>
                     </div>
                   </div>
                 </div>
@@ -161,15 +134,11 @@ const MoviePage = () => {
 
           {/* DESCRIPTION */}
           <div className="flex flex-col p-4 lg:p-6">
-            <span className="-ml-1 mb-1 text-xs font-normal uppercase text-cyan-500">
-              description
-            </span>
+            <span className="section-title">description</span>
             <p className="flex flex-col p-1 text-xl">{movie.Plot}</p>
           </div>
           <div className="flex flex-col p-4 lg:p-6">
-            <span className="-ml-1 mb-1 text-xs font-normal uppercase text-cyan-500">
-              awards
-            </span>
+            <span className="section-title">awards</span>
             <p className="flex flex-col p-1 text-xl">{movie.Awards}</p>
           </div>
           <div className="flex items-center gap-2 p-4 text-slate-400 hover:text-cyan-500 lg:p-6">
@@ -181,18 +150,7 @@ const MoviePage = () => {
             >
               check on IMDb
             </a>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="size-6"
-            >
-              <path
-                fillRule="evenodd"
-                d="M15.75 2.25H21a.75.75 0 0 1 .75.75v5.25a.75.75 0 0 1-1.5 0V4.81L8.03 17.03a.75.75 0 0 1-1.06-1.06L19.19 3.75h-3.44a.75.75 0 0 1 0-1.5Zm-10.5 4.5a1.5 1.5 0 0 0-1.5 1.5v10.5a1.5 1.5 0 0 0 1.5 1.5h10.5a1.5 1.5 0 0 0 1.5-1.5V10.5a.75.75 0 0 1 1.5 0v8.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V8.25a3 3 0 0 1 3-3h8.25a.75.75 0 0 1 0 1.5H5.25Z"
-                clipRule="evenodd"
-              />
-            </svg>
+            <Link />
           </div>
         </div>
       ) : (

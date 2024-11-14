@@ -117,7 +117,7 @@ const SearchBar: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-3/4" ref={searchRef}>
+    <div className="relative w-full md:w-3/4" ref={searchRef}>
       <div className="flex w-full items-center rounded-lg border border-slate-500/50 bg-transparent p-2 px-2 focus-within:border-cyan-400 focus-within:transition-all focus-within:duration-1000 focus-within:ease-out">
         <Search />
         <input

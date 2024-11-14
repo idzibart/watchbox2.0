@@ -2,6 +2,7 @@ import Rating from "@mui/material/Rating";
 import { SyntheticEvent, useEffect, useState } from "react";
 import apiRequest from "../lib/apiRequest";
 import { Eye, Plus } from "./Icons";
+import Spinner from "./Spinner";
 
 interface MovieRatingProps {
   imdbID: string;
@@ -9,14 +10,18 @@ interface MovieRatingProps {
 
 const MovieRating = ({ imdbID }: MovieRatingProps) => {
   const [value, setValue] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchRating = async () => {
+      setIsLoading(true);
       try {
         const response = await apiRequest.get(`/rate/movie/${imdbID}`);
         setValue(response.data?.rate || null);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -32,14 +37,15 @@ const MovieRating = ({ imdbID }: MovieRatingProps) => {
       await apiRequest.post("/rate/movie", { imdbID, rate: newValue });
     } catch (error) {
       console.error(error);
+    } finally {
     }
   };
 
   return (
     <Rating
       name="movie-rating"
-      size="large"
       value={value}
+      max={10}
       onChange={handleRatingChange}
     />
   );
@@ -51,15 +57,19 @@ interface WatchlistProps {
 
 const WatchList = ({ imdbID }: WatchlistProps) => {
   const [isInWatchlist, setIsOnWatchlist] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   //CHECKING IF IS
   useEffect(() => {
     const checkWatchlist = async () => {
+      setIsLoading(true);
       try {
         const response = await apiRequest.get(`/watchlist/movie/${imdbID}`);
         setIsOnWatchlist(response.data.isOnWatchlist);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -67,6 +77,7 @@ const WatchList = ({ imdbID }: WatchlistProps) => {
   }, [imdbID]);
 
   const handleWatchlistToggle = async () => {
+    setIsLoading(true);
     try {
       if (isInWatchlist) {
         // DELETE
@@ -79,26 +90,31 @@ const WatchList = ({ imdbID }: WatchlistProps) => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <button
+      disabled={isLoading}
       onClick={handleWatchlistToggle}
-      className={`flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-cyan-500 px-3 py-2 text-xl transition-all duration-200 hover:scale-105 hover:bg-cyan-800 hover:text-slate-200 ${
+      className={`flex w-4/5 cursor-pointer items-center justify-center gap-2 rounded-lg p-2 transition-all duration-200 hover:text-slate-200 ${
         isInWatchlist
-          ? "bg-yellow-500 hover:bg-cyan-800"
-          : "bg-cyan-500 hover:bg-cyan-800"
+          ? "bg-slate-600 shadow-inner shadow-black hover:bg-cyan-800"
+          : "shadow-blacks bg-cyan-500 shadow-xl hover:bg-cyan-800"
       }`}
     >
-      {isInWatchlist ? (
+      {isLoading ? (
+        <Spinner />
+      ) : isInWatchlist ? (
         <>
-          Added to Watchlist
+          already on Watchlist
           <Eye />
         </>
       ) : (
         <>
-          Want to Watch
+          add to Watchlist
           <Plus />
         </>
       )}
