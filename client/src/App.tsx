@@ -2,8 +2,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "./pages/login";
 import MoviePage from "./pages/main";
 import HomePage from "./pages/home";
-import Layout from "./layout/layout";
 import RegisterPage from "./pages/register";
+import MyListPage from "./pages/mylist";
+import { Layout, RequireAuth } from "./layout/layout";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -26,6 +27,16 @@ const App = () => {
         {
           path: "register",
           element: <RegisterPage />,
+        },
+      ],
+    },
+    {
+      path: "/",
+      element: <RequireAuth />,
+      children: [
+        {
+          path: "mylist",
+          element: <MyListPage />,
         },
       ],
     },

@@ -5,8 +5,9 @@ import { MovieDetail } from "../lib/types";
 import Spinner from "../components/Spinner";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import { WatchList, MovieRating } from "../components/Lists";
 import { Calendar, Link, Star, Time } from "../components/Icons";
+import MovieRating from "../components/MovieRatingBar";
+import WatchList from "../components/ToWatchMovieBar";
 
 const MoviePage = () => {
   const { imdbID } = useParams();

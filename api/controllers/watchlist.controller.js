@@ -68,3 +68,20 @@ export const removeFromWatchlist = async (req, res) => {
     res.status(500).json({ message: "Error removing from watchlist", error });
   }
 };
+
+//FETCHING RATE PER USER
+export const getWatchedMovies = async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    const watchedMovies = await prisma.rating.findMany({
+      where: { userId: userId },
+      include: {
+        user: true, //user data in response
+      },
+    });
+    res.status(200).json(watchedMovies);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching rated movies", error });
+  }
+};

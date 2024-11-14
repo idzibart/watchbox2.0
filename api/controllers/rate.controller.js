@@ -51,3 +51,20 @@ export const getRating = async (req, res) => {
     res.status(500).json({ message: "Error fetching rating", error });
   }
 };
+
+//FETCHING RATE PER USER
+export const getRatedMovies = async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    const ratedMovies = await prisma.rating.findMany({
+      where: { userId: userId },
+      include: {
+        user: true,  // optional, include if you want user data in the response
+      },
+    });
+    res.status(200).json(ratedMovies);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching rated movies", error });
+  }
+};
