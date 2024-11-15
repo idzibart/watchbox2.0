@@ -89,7 +89,7 @@ const MoviePage = () => {
                       <span className="section-title">your rating</span>
                       <div className="flex items-center justify-center lg:scale-110">
                         {currentUser && imdbID ? (
-                          <MovieRating imdbID={imdbID} />
+                          <MovieRating {...movie} imdbID={imdbID!} />
                         ) : (
                           <>Login to rate</>
                         )}
@@ -98,7 +98,7 @@ const MoviePage = () => {
                     <div className="flex flex-col">
                       <span className="section-title">watchlist</span>
                       <div className="flex items-center justify-center">
-                        {imdbID && <WatchList imdbID={imdbID} />}
+                        {imdbID && <WatchList {...movie} imdbID={imdbID!} />}
                       </div>
                     </div>
                   </div>

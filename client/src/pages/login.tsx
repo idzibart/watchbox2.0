@@ -4,11 +4,11 @@ import apiRequest from "../lib/apiRequest";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/userSlice";
 
-function LoginPage() {
+const LoginPage = () => {
   const [error, setError] = useState<String>("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,7 +24,7 @@ function LoginPage() {
         password,
       });
 
-      dispatch(setUser(res.data))
+      dispatch(setUser(res.data));
       navigate("/");
     } catch (err: any) {
       setError(err.response.data.message);
@@ -35,7 +35,7 @@ function LoginPage() {
   return (
     <div className="flex h-full">
       <div className="flex h-full w-3/5 items-center justify-center">
-        <form className="flex flex-col w-3/5 gap-5" onSubmit={handleSubmit}>
+        <form className="flex w-3/5 flex-col gap-5" onSubmit={handleSubmit}>
           <h1>Welcome back</h1>
           <input
             name="username"
@@ -78,6 +78,6 @@ function LoginPage() {
       </div>
     </div>
   );
-}
+};
 
 export default LoginPage;

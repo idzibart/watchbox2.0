@@ -1,18 +1,18 @@
-import Rating from "@mui/material/Rating";
 import { SyntheticEvent, useEffect, useState } from "react";
 import apiRequest from "../lib/apiRequest";
 import Spinner from "./Spinner";
 import { MovieRatingProps } from "../lib/types";
+import { Rating } from "@mui/material";
 
-const MovieRating = ({
-  imdbID,
-  title,
-  year,
-  poster,
-  runtime,
-  genre,
-  country,
-}: MovieRatingProps) => {
+const MovieRating = ({ imdbID, ...movie }: MovieRatingProps) => {
+  const {
+    Title: title,
+    Year: year,
+    Poster: poster,
+    Runtime: runtime,
+    Genre: genre,
+    Country: country,
+  } = movie;
   const [value, setValue] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -41,12 +41,12 @@ const MovieRating = ({
       await apiRequest.post("/rate/movie", {
         imdbID,
         rate: newValue,
-        title,
-        year,
-        poster,
-        runtime,
-        genre,
-        country,
+        title: title || "Unknown",
+        year: year || "Unknown",
+        poster: poster || "N/A",
+        runtime: runtime || "N/A",
+        genre: genre || "N/A",
+        country: country || "N/A",
       });
     } catch (error) {
       console.error("Error saving rating", error);
@@ -59,7 +59,7 @@ const MovieRating = ({
         <Spinner />
       ) : (
         <Rating
-          name="movie-rating"
+          name="simple-controlled"
           value={value}
           max={10}
           onChange={handleRatingChange}

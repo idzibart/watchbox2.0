@@ -22,6 +22,12 @@ model Rating {
   userId    String   @db.ObjectId
   movieId   String   // imdbID
   rate      Int      @default(0)
+  title     String   
+  year      String   
+  poster    String?  
+  runtime   String?  
+  genre     String? 
+  country   String?  
   createdAt DateTime @default(now())
 
   user      User @relation(fields: [userId], references: [id])
@@ -33,10 +39,15 @@ model Watchlist {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   userId    String   @db.ObjectId
   movieId   String   // imdbID
+  title     String   
+  year      String   
+  poster    String?  
+  runtime   String?  
+  genre     String?  
+  country   String?  
   createdAt DateTime @default(now())
 
   user      User     @relation(fields: [userId], references: [id])
 
   @@unique([userId, movieId])
 }
-

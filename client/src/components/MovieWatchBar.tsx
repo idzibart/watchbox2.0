@@ -1,29 +1,29 @@
 import { useEffect, useState } from "react";
-import { Watchlist } from "../lib/types";
+import { Rating } from "../lib/types";
 import apiRequest from "../lib/apiRequest";
 import Spinner from "./Spinner";
 import { useNavigate } from "react-router-dom";
 
-const WatchlistMovieList = () => {
-  const [watchlistMovies, setWatchlistMovies] = useState<Watchlist[]>([]);
+const RatedMovieList = () => {
+  const [ratedMovies, setRatedMovies] = useState<Rating[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchWatchlistMovies = async () => {
+    const fetchRatedMovies = async () => {
       try {
-        const response = await apiRequest.get("/watchlist/movies", {
+        const response = await apiRequest.get("/rate/movies", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
-        setWatchlistMovies(response.data);
+        setRatedMovies(response.data);
       } catch (error) {
-        console.error("Error fetching watchlist movies", error);
+        console.error("Error fetching rated movies", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchWatchlistMovies();
+    fetchRatedMovies();
   }, []);
 
   if (loading) return <Spinner />;
@@ -34,49 +34,51 @@ const WatchlistMovieList = () => {
 
   return (
     <div className="space-y-4 rounded-lg bg-slate-700 p-4 text-slate-200">
-      <h2 className="text-lg font-bold">Watchlist Movies</h2>
+      <h2 className="text-lg font-bold">Rated Movies</h2>
       <p className="text-sm text-slate-400">
-        Total watchlist movies: {watchlistMovies.length}
+        Total rated movies: {ratedMovies.length}
       </p>
 
-      {watchlistMovies.length > 0 ? (
+      {ratedMovies.length > 0 ? (
         <ul className="space-y-2">
-          {watchlistMovies.map((movie) => (
+          {ratedMovies.map((rating) => (
             <li
-              key={movie.id}
+              key={rating.id}
               className="flex cursor-pointer justify-between rounded-md bg-slate-800 p-2 hover:bg-slate-600"
-              onClick={() => handleMovieClick(movie.movieId)}
+              onClick={() => {
+                handleMovieClick(rating.movieId);
+              }}
             >
               <div className="flex gap-4">
                 <img
-                  src={movie.poster}
-                  alt={movie.title}
+                  src={rating.poster}
+                  alt={rating.title}
                   className="h-24 w-16 rounded object-cover"
                 />
                 <div className="flex flex-col justify-between">
                   <span className="font-semibold">
-                    {movie.title} ({movie.year})
+                    {rating.title} ({rating.year})
                   </span>
-                  <span className="text-sm text-slate-400">{movie.genre}</span>
+                  <span className="text-sm text-slate-400">{rating.genre}</span>
                   <span className="text-sm text-slate-400">
-                    {movie.country}
+                    {rating.country}
                   </span>
-                  <span>Runtime: {movie.runtime}</span>
+                  <span>Runtime: {rating.runtime}</span>
                 </div>
               </div>
               <div className="flex flex-col justify-between text-right">
-                <span className="text-xs text-slate-400">
-                  Added on: {new Date(movie.createdAt).toLocaleDateString()}
+                <span className="text-lg font-bold">
+                  Rating: {rating.rate} / 10
                 </span>
               </div>
             </li>
           ))}
         </ul>
       ) : (
-        <p>No movies in your watchlist yet.</p>
+        <p>No rated movies yet.</p>
       )}
     </div>
   );
 };
 
-export default WatchlistMovieList;
+export default RatedMovieList;

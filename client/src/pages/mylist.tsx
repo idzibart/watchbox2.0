@@ -1,6 +1,6 @@
-import RatedMovieList from "../components/RatedMovieList";
+import RatedMovieList from "../components/MovieWatchBar";
 import StatsPanel from "../components/StatsPanel";
-import ToWatchMovieList from "../components/ToWatchMovieList";
+import ToWatchMovieList from "../components/MovieWatchBar";
 
 const MyListPage = () => {
   return (

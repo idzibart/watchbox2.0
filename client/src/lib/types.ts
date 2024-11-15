@@ -46,25 +46,20 @@ export interface Watchlist {
   id: string;
   userId: string;
   movieId: string; //imdbID
+  title: string;
+  year: string;
+  poster?: string;
+  runtime?: string;
+  genre?: string;
+  country?: string;
   createdAt: string;
 }
 
-export interface WatchlistProps {
+export interface WatchlistProps extends MovieDetail {
   imdbID: string;
-  title?: string;
-  year?: string;
-  poster?: string;
-  runtime?: string;
-  genre?: string;
-  country?: string;
 }
 
-export interface MovieRatingProps {
+export interface MovieRatingProps extends MovieDetail {
   imdbID: string;
-  title?: string;
-  year?: string;
-  poster?: string;
-  runtime?: string;
-  genre?: string;
-  country?: string;
+  rate?: number;
 }

@@ -1,23 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Movie } from "../lib/types";
 import apiRequest from "../lib/apiRequest";
 import Spinner from "./Spinner";
 import { useNavigate } from "react-router-dom";
 import { Search } from "./Icons";
 
-const SearchBar: React.FC = () => {
+const SearchBar = () => {
   const [title, setTitle] = useState<string>("");
   const [movies, setMovies] = useState<Movie[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [debouncedTitle, setDebouncedTitle] = useState<string>("");
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [dropdownStyles, setDropdownStyles] = useState<React.CSSProperties>({
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-  });
 
   const navigate = useNavigate();
 
@@ -73,30 +67,6 @@ const SearchBar: React.FC = () => {
     navigate(`/movie/${imdbID}`);
     setIsDropdownVisible(false);
   };
-
-  // DROPDOWN POSITIONING AND VISIBILITY
-  useEffect(() => {
-    const updateDropdownPosition = () => {
-      if (isDropdownVisible && searchRef.current) {
-        const rect = searchRef.current.getBoundingClientRect();
-        setDropdownStyles({
-          position: "absolute",
-          top: `${rect.bottom}px`,
-          left: `${rect.left}px`,
-          width: `${rect.width}px`,
-          zIndex: 50,
-        });
-      }
-    };
-
-    updateDropdownPosition();
-
-    window.addEventListener("resize", updateDropdownPosition);
-
-    return () => {
-      window.removeEventListener("resize", updateDropdownPosition);
-    };
-  }, [isDropdownVisible]);
 
   // DROPDOWN VISIBILITY
   useEffect(() => {

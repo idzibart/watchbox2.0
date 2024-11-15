@@ -2,7 +2,7 @@ import prisma from "../lib/prisma.js";
 
 //RATING
 export const rateMovie = async (req, res) => {
-  const { imdbID, rate } = req.body;
+  const { imdbID, rate, title, year, poster, runtime, genre, country } = req.body;
   const userId = req.userId;
 
   if (!imdbID || rate == null) {
@@ -19,15 +19,28 @@ export const rateMovie = async (req, res) => {
       },
       update: {
         rate: rate,
+        title: title,
+        year: year,
+        poster: poster,
+        runtime: runtime,
+        genre: genre,
+        country: country,
       },
       create: {
         userId: userId,
         movieId: imdbID,
         rate: rate,
+        title: title,
+        year: year,
+        poster: poster,
+        runtime: runtime,
+        genre: genre,
+        country: country,
       },
     });
     res.status(200).json(rating);
   } catch (error) {
+    console.error("Error saving rating:", error);
     res.status(500).json({ message: "Error saving rating", error });
   }
 };
