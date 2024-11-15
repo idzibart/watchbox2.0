@@ -4,7 +4,7 @@ import Spinner from "./Spinner";
 import { MovieRatingProps } from "../lib/types";
 import { Rating } from "@mui/material";
 
-const MovieRating = ({ imdbID, ...movie }: MovieRatingProps) => {
+const RatingStar = ({ imdbID, ...movie }: MovieRatingProps) => {
   const {
     Title: title,
     Year: year,
@@ -69,4 +69,4 @@ const MovieRating = ({ imdbID, ...movie }: MovieRatingProps) => {
   );
 };
 
-export default MovieRating;
+export default RatingStar;

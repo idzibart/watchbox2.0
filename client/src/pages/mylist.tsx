@@ -1,14 +1,14 @@
-import RatedMovieList from "../components/MovieWatchBar";
-import StatsPanel from "../components/StatsPanel";
-import ToWatchMovieList from "../components/MovieWatchBar";
+import RatedMovieList from "../components/RatedMovieList";
+import WatchlistMovieList from "../components/WatchlistMovieList";
+import MovieStats from "../components/MovieStats";
 
 const MyListPage = () => {
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto  p-4">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <RatedMovieList />
-        <ToWatchMovieList />
-        <StatsPanel />
+        <WatchlistMovieList />
+        <MovieStats />
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import { Watchlist } from "../lib/types";
 import apiRequest from "../lib/apiRequest";
 import Spinner from "./Spinner";
 import { useNavigate } from "react-router-dom";
+import { Time } from "./Icons";
 
 const WatchlistMovieList = () => {
   const [watchlistMovies, setWatchlistMovies] = useState<Watchlist[]>([]);
@@ -33,7 +34,7 @@ const WatchlistMovieList = () => {
   };
 
   return (
-    <div className="space-y-4 rounded-lg bg-slate-700 p-4 text-slate-200">
+    <div className="h-fit space-y-2 rounded-lg border border-slate-500/50 bg-cyan-800/30 p-2">
       <h2 className="text-lg font-bold">Watchlist Movies</h2>
       <p className="text-sm text-slate-400">
         Total watchlist movies: {watchlistMovies.length}
@@ -44,16 +45,21 @@ const WatchlistMovieList = () => {
           {watchlistMovies.map((movie) => (
             <li
               key={movie.id}
-              className="flex cursor-pointer justify-between rounded-md bg-slate-800 p-2 hover:bg-slate-600"
+              className="flex cursor-pointer justify-between rounded-md bg-cyan-800/50 p-1 hover:bg-cyan-800"
               onClick={() => handleMovieClick(movie.movieId)}
             >
-              <div className="flex gap-4">
+              <div className="flex-col">
                 <img
                   src={movie.poster}
                   alt={movie.title}
                   className="h-24 w-16 rounded object-cover"
                 />
-                <div className="flex flex-col justify-between">
+                <span className="text-xs text-slate-400">
+                  Added on: {new Date(movie.createdAt).toLocaleDateString()}
+                </span>
+              </div>
+              <div className="flex flex-col justify-between p-1 text-right">
+                <div className="flex flex-col justify-between gap-1">
                   <span className="font-semibold">
                     {movie.title} ({movie.year})
                   </span>
@@ -61,13 +67,10 @@ const WatchlistMovieList = () => {
                   <span className="text-sm text-slate-400">
                     {movie.country}
                   </span>
-                  <span>Runtime: {movie.runtime}</span>
+                  <span className="flex justify-end">
+                    <Time /> {movie.runtime}
+                  </span>
                 </div>
-              </div>
-              <div className="flex flex-col justify-between text-right">
-                <span className="text-xs text-slate-400">
-                  Added on: {new Date(movie.createdAt).toLocaleDateString()}
-                </span>
               </div>
             </li>
           ))}

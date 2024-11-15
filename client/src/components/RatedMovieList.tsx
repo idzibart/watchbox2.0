@@ -3,6 +3,7 @@ import { Rating } from "../lib/types";
 import apiRequest from "../lib/apiRequest";
 import Spinner from "./Spinner";
 import { useNavigate } from "react-router-dom";
+import { Star, Time } from "./Icons";
 
 const RatedMovieList = () => {
   const [ratedMovies, setRatedMovies] = useState<Rating[]>([]);
@@ -33,7 +34,7 @@ const RatedMovieList = () => {
   };
 
   return (
-    <div className="space-y-4 rounded-lg bg-slate-700 p-4 text-slate-200">
+    <div className="h-fit space-y-2 rounded-lg p-2 border border-slate-500/50 bg-cyan-800/30">
       <h2 className="text-lg font-bold">Rated Movies</h2>
       <p className="text-sm text-slate-400">
         Total rated movies: {ratedMovies.length}
@@ -44,18 +45,25 @@ const RatedMovieList = () => {
           {ratedMovies.map((rating) => (
             <li
               key={rating.id}
-              className="flex cursor-pointer justify-between rounded-md bg-slate-800 p-2 hover:bg-slate-600"
+              className="flex cursor-pointer justify-between rounded-md bg-cyan-800/50 p-1 hover:bg-cyan-800"
               onClick={() => {
                 handleMovieClick(rating.movieId);
               }}
             >
-              <div className="flex gap-4">
+              <div className="w-1/4 flex-col">
                 <img
                   src={rating.poster}
                   alt={rating.title}
                   className="h-24 w-16 rounded object-cover"
                 />
-                <div className="flex flex-col justify-between">
+
+                <span className="flex items-center gap-1 text-lg font-bold">
+                  <Star />
+                  {rating.rate}
+                </span>
+              </div>
+              <div className="flex flex-col justify-between p-1 text-right">
+                <div className="flex flex-col justify-between gap-1">
                   <span className="font-semibold">
                     {rating.title} ({rating.year})
                   </span>
@@ -63,13 +71,10 @@ const RatedMovieList = () => {
                   <span className="text-sm text-slate-400">
                     {rating.country}
                   </span>
-                  <span>Runtime: {rating.runtime}</span>
+                  <span className="flex justify-end">
+                    <Time /> {rating.runtime}
+                  </span>
                 </div>
-              </div>
-              <div className="flex flex-col justify-between text-right">
-                <span className="text-lg font-bold">
-                  Rating: {rating.rate} / 10
-                </span>
               </div>
             </li>
           ))}

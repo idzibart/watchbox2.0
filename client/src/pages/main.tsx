@@ -6,8 +6,8 @@ import Spinner from "../components/Spinner";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { Calendar, Link, Star, Time } from "../components/Icons";
-import MovieRating from "../components/MovieRatingBar";
-import WatchList from "../components/ToWatchMovieBar";
+import WatchlistButton from "../components/WatchlistButton";
+import RatingStar from "../components/RatingStar";
 
 const MoviePage = () => {
   const { imdbID } = useParams();
@@ -89,7 +89,7 @@ const MoviePage = () => {
                       <span className="section-title">your rating</span>
                       <div className="flex items-center justify-center lg:scale-110">
                         {currentUser && imdbID ? (
-                          <MovieRating {...movie} imdbID={imdbID!} />
+                          <RatingStar {...movie} imdbID={imdbID!} />
                         ) : (
                           <>Login to rate</>
                         )}
@@ -98,7 +98,9 @@ const MoviePage = () => {
                     <div className="flex flex-col">
                       <span className="section-title">watchlist</span>
                       <div className="flex items-center justify-center">
-                        {imdbID && <WatchList {...movie} imdbID={imdbID!} />}
+                        {imdbID && (
+                          <WatchlistButton {...movie} imdbID={imdbID!} />
+                        )}
                       </div>
                     </div>
                   </div>

@@ -4,7 +4,7 @@ import { Eye, Plus } from "./Icons";
 import Spinner from "./Spinner";
 import { WatchlistProps } from "../lib/types";
 
-const WatchList = ({ imdbID, ...movie }: WatchlistProps) => {
+const WatchlistButton = ({ imdbID, ...movie }: WatchlistProps) => {
   const {
     Title: title,
     Year: year,
@@ -84,4 +84,4 @@ const WatchList = ({ imdbID, ...movie }: WatchlistProps) => {
   );
 };
 
-export default WatchList;
+export default WatchlistButton;
